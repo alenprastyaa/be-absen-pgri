@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import Walas from "./walasModel.js";
 import Users from "./userModel.js";
 
 const { DataTypes } = Sequelize;
@@ -41,8 +42,5 @@ const Siswa = db.define(
     freezeTableName: true,
   }
 );
-
-Users.hasMany(Siswa);
-Siswa.belongsTo(Users, { foreignKey: "userId" });
 
 export default Siswa;

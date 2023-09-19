@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
-
+import Kelas from "./kelasModel.js";
 const { DataTypes } = Sequelize;
 
 const Walas = db.define(
@@ -32,7 +32,6 @@ const Walas = db.define(
     kode_kelas: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: true,
       },
@@ -42,5 +41,7 @@ const Walas = db.define(
     freezeTableName: true,
   }
 );
+
+Walas.belongsTo(Kelas, { foreignKey: "kode_kelas" });
 
 export default Walas;

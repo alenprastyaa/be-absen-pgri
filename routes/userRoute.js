@@ -5,7 +5,7 @@ import { adminOnly, veryfyUser } from "../middleware/Authuser.js";
 
 const router = express.Router();
 
-router.get("/user", veryfyUser, adminOnly, getUser);
+router.get("/user", veryfyUser, getUser);
 router.post("/user", createUser);
 // router.post("/login", login);
 // router.delete("/logout", logOut);

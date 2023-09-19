@@ -7,26 +7,14 @@ export const getSiswa = async (req, res) => {
     let response;
     if (req.role === "admin") {
       response = await Siswa.findAll({
-        attributes: ["uuid","kode_kelas", "nama_siswa"],
-        include: [
-          {
-            model: User,
-            attributes: ["name", "email"],
-          },
-        ],
+        attributes: ["uuid", "nama_siswa", "kode_kelas"],
       });
     } else {
       response = await Siswa.findAll({
-        attributes: ["uuid","kode_kelas", "nama_siswa"],
+        attributes: ["uuid", "nama_siswa", "kode_kelas"],
         where: {
           userId: req.userId,
         },
-        include: [
-          {
-            attributes: ["name", "email"],
-            model: User,
-          },
-        ],
       });
     }
     res.status(200).json(response);
@@ -36,11 +24,11 @@ export const getSiswa = async (req, res) => {
 };
 
 export const createSiswa = async (req, res) => {
-  const { kode_kelas, nama_siswa } = req.body;
+  const { nama_siswa, kelas } = req.body;
   try {
-      await Siswa.create({
-      kode_kelas : kode_kelas,
+    await Siswa.create({
       nama_siswa: nama_siswa,
+      kelas: kelas,
       userId: req.userId,
     });
     res.status(201).json({ msg: "Siswa Created Successfuly" });
