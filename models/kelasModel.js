@@ -1,19 +1,20 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import Users from "./userModel.js";
 
 const { DataTypes } = Sequelize;
 
 const Kelas = db.define(
   "kelas",
   {
-    uuid: {
-      type: DataTypes.STRING,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
+    // userId: {
+    //   type: DataTypes.STRING,
+    //   defaultValue: DataTypes.UUIDV4,
+    //   allowNull: false,
+    //   validate: {
+    //     notEmpty: true,
+    //   },
+    // },
     kode_kelas: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -35,4 +36,6 @@ const Kelas = db.define(
   }
 );
 
+Users.hasMany(Kelas);
+Kelas.belongsTo(Users, { foreignKey: "userId" });
 export default Kelas;
