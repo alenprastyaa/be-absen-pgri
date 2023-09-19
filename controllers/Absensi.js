@@ -11,6 +11,8 @@ export const getAbsensi = async (req, res) => {
         include: [
           {
             model: Siswa,
+            attributes: ["nama_kelas"],
+            attributes: ["nama_siswa"],
           },
         ],
       });
@@ -20,6 +22,13 @@ export const getAbsensi = async (req, res) => {
         include: [
           {
             model: Siswa,
+            attributes: ["nama_siswa"],
+            include: [
+              {
+                model: Kelas,
+                attributes: ["nama_kelas"],
+              },
+            ],
           },
         ],
         where: {
