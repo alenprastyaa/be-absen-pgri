@@ -8,11 +8,20 @@ export const getAbsensi = async (req, res) => {
     if (req.role === "admin") {
       response = await Absen.findAll({
         attributes: ["nis", "jenis_absen"],
+        where: {
+          uuid: req.session.userId,
+        },
         include: [
           {
             model: Siswa,
             attributes: ["nama_kelas"],
             attributes: ["nama_siswa"],
+            include: [
+              {
+                model: Kelas,
+                attributes: ["nama_kelas"],
+              },
+            ],
           },
         ],
       });

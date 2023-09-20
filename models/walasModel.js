@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import Users from "./userModel.js";
 import Kelas from "./kelasModel.js";
 const { DataTypes } = Sequelize;
 
@@ -33,6 +34,8 @@ const Walas = db.define(
     freezeTableName: true,
   }
 );
+Users.hasMany(Walas);
+Walas.belongsTo(Users, { foreignKey: "userId" });
 
 Kelas.hasMany(Walas);
 Walas.belongsTo(Kelas, { foreignKey: "kode_kelas" });
