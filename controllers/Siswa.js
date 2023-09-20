@@ -22,11 +22,9 @@ export const getSiswa = async (req, res) => {
             model: User,
           },
         ],
-        where: {
-          userId: req.userId,
-        },
+=======
+        attributes: ["uuid", "nama_siswa", "kode_kelas"],
       });
-    }
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.massage });
@@ -40,6 +38,12 @@ export const createSiswa = async (req, res) => {
       nis: nis,
       nama_siswa: nama_siswa,
       kode_kelas: kode_kelas,
+=======
+  const { nama_siswa, kelas } = req.body;
+  try {
+    await Siswa.create({
+      nama_siswa: nama_siswa,
+      kelas: kelas,
       userId: req.userId,
     });
     res.status(201).json({ msg: "Siswa Created Successfuly" });

@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import Walas from "./walasModel.js";
 import Users from "./userModel.js";
 import Kelas from "./kelasModel.js";
 
@@ -36,8 +37,5 @@ const Siswa = db.define(
   }
 );
 Siswa.belongsTo(Kelas, { foreignKey: "kode_kelas", targetKey: "kode_kelas" });
-
-Users.hasMany(Siswa);
-Siswa.belongsTo(Users, { foreignKey: "userId" });
 
 export default Siswa;

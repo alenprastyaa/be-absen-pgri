@@ -1,4 +1,5 @@
 import Walas from "../models/walasModel.js";
+import Kelas from "../models/kelasModel.js";
 
 export const getWalas = async (req, res) => {
   try {

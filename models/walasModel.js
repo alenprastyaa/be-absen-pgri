@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import Kelas from "./kelasModel.js";
-
 const { DataTypes } = Sequelize;
 
 const Walas = db.define(
