@@ -6,14 +6,6 @@ const { DataTypes } = Sequelize;
 const Walas = db.define(
   "walas",
   {
-    uuid: {
-      type: DataTypes.STRING,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
     nip: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -42,6 +34,7 @@ const Walas = db.define(
   }
 );
 
+Kelas.hasMany(Walas);
 Walas.belongsTo(Kelas, { foreignKey: "kode_kelas" });
 
 export default Walas;

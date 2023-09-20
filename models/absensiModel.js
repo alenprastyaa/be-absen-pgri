@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
-import Users from "./userModel.js";
+import Kelas from "./kelasModel.js";
+import Siswa from "./siswaModel.js";
 import db from "../config/Database.js";
 
 const { DataTypes } = Sequelize;
@@ -7,29 +8,7 @@ const { DataTypes } = Sequelize;
 const Absensi = db.define(
   "absensi",
   {
-    uuid: {
-      type: DataTypes.STRING,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    nama_siswa: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    kelas: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    userId: {
+    nis: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -43,17 +22,19 @@ const Absensi = db.define(
         notEmpty: true,
       },
     },
-    tanggal_absen: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-      defaultValue: new Date(),
-    },
   },
   {
     freezeTableName: true,
   }
 );
+// Siswa.hasOne(Absensi);
+// Absensi.belongsTo(Siswa, { foreignKey: "nis" });
 
-Users.hasMany(Absensi);
-Absensi.belongsTo(Users, { foreignKey: "userId" });
+Kelas.hasMany(Absensi);
+Absensi.belongsTo(Kelas, { foreignKey: "userId" });
+
+Absensi.belongsTo(Siswa, { foreignKey: "nis", targetKey: "nis" });
+
+Kelas.hasMany(Absensi);
+Absensi.belongsTo(Kelas, { foreignKey: "kode_kelas" });
 export default Absensi;

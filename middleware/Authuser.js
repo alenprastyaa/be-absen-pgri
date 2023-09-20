@@ -21,7 +21,7 @@ export const adminOnly = async (req, res, next) => {
     },
   });
   if (!user) return res.status(404).json({ msg: "User Tidak ditemukan" });
-  if (user.role !== "user")
+  if (user.role !== "admin")
     return res.status(403).json({ msg: "Akses Terlarang" });
   next();
 };

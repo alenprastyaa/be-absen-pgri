@@ -4,12 +4,7 @@ import Kelas from "../models/kelasModel.js";
 export const getWalas = async (req, res) => {
   try {
     const response = await Walas.findAll({
-      attributes: ["uuid", "nip", "nama_walas", "Kode_kelas"],
-      include: [
-        {
-          model: Kelas,
-        },
-      ],
+      attributes: ["nip", "nama_walas", "kode_kelas"],
     });
     res.status(200).json(response);
   } catch (error) {

@@ -1,43 +1,39 @@
 import Absen from "../models/absensiModel.js";
-import User from "../models/userModel.js";
+import Siswa from "../models/siswaModel.js";
+import Kelas from "../models/kelasModel.js";
 import { Op } from "sequelize";
 export const getAbsensi = async (req, res) => {
   try {
     let response;
     if (req.role === "admin") {
       response = await Absen.findAll({
-        attributes: [
-          "uuid",
-          "nama_siswa",
-          "kelas",
-          "jenis_absen",
-          "tanggal_absen",
-        ],
+        attributes: ["nis", "jenis_absen"],
         include: [
           {
-            model: User,
-            attributes: ["name", "email"],
+            model: Siswa,
+            attributes: ["nama_kelas"],
+            attributes: ["nama_siswa"],
           },
         ],
       });
     } else {
       response = await Absen.findAll({
-        attributes: [
-          "uuid",
-          "nama_siswa",
-          "kelas",
-          "jenis_absen",
-          "tanggal_absen",
+        attributes: ["nis", "jenis_absen"],
+        include: [
+          {
+            model: Siswa,
+            attributes: ["nama_siswa"],
+            include: [
+              {
+                model: Kelas,
+                attributes: ["nama_kelas"],
+              },
+            ],
+          },
         ],
         where: {
           userId: req.userId,
         },
-        include: [
-          {
-            attributes: ["name", "email"],
-            model: User,
-          },
-        ],
       });
     }
     res.status(200).json(response);
@@ -46,18 +42,27 @@ export const getAbsensi = async (req, res) => {
   }
 };
 
+// export const createAbsensi = async (req, res) => {
+//   const { nis, jenis_absen } = req.body;
+//   try {
+//     await Absen.create({
+//       nis: nis,
+//       jenis_absen: jenis_absen,
+//     });
+//     res.status(201).json({ msg: "Absensi Created Successfuly" });
+//   } catch (error) {
+//     res.status(500).json({ msg: error.massage });
+//   }
+// };
+
 export const createAbsensi = async (req, res) => {
-  const { nama_siswa, kelas, jenis_absen } = req.body;
   try {
-    await Absen.create({
-      nama_siswa: nama_siswa,
-      kelas: kelas,
-      jenis_absen: jenis_absen,
-      userId: req.userId,
+    await Absen.create(req.body);
+    res.json({
+      message: "Absen Created",
     });
-    res.status(201).json({ msg: "Absensi Created Successfuly" });
   } catch (error) {
-    res.status(500).json({ msg: error.massage });
+    res.json({ message: error.message });
   }
 };
 

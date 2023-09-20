@@ -10,14 +10,14 @@ const Users = db.define(
       type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      validateL: {
+      validate: {
         notEmpty: true,
       },
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      validateL: {
+      validate: {
         notEmpty: true,
         len: [3, 100],
       },
@@ -25,7 +25,7 @@ const Users = db.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      validateL: {
+      validate: {
         notEmpty: true,
         isEmail: true,
       },
@@ -33,14 +33,14 @@ const Users = db.define(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validateL: {
+      validate: {
         notEmpty: true,
       },
     },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
-      validateL: {
+      validate: {
         notEmpty: true,
       },
     },
