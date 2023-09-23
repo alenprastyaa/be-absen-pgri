@@ -5,11 +5,6 @@ export const getWalas = async (req, res) => {
   try {
     const response = await Walas.findAll({
       attributes: ["nip", "nama_walas", "kode_kelas"],
-      include: [
-        {
-          model: Kelas,
-        },
-      ],
     });
     res.status(200).json(response);
   } catch (error) {

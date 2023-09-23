@@ -1,23 +1,27 @@
 import Siswa from "../models/siswaModel.js";
 import Kelas from "../models/kelasModel.js";
 import { Op } from "sequelize";
+import Walas from "../models/walasModel.js";
 
 export const getSiswa = async (req, res) => {
   try {
     let response;
     if (req.role === "admin") {
       response = await Siswa.findAll({
-        attributes: ["nis", "nama_siswa", "kode_kelas"],
         include: [
           {
             model: Kelas,
             attributes: ["kode_kelas", "nama_kelas"],
+            include: [
+              {
+                model: Walas,
+              },
+            ],
           },
         ],
       });
     } else {
       response = await Siswa.findAll({
-        attributes: ["nis", "nama_siswa", "kode_kelas"],
         include: [
           {
             model: Kelas,

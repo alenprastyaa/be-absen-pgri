@@ -37,7 +37,6 @@ const Walas = db.define(
 Users.hasMany(Walas);
 Walas.belongsTo(Users, { foreignKey: "userId" });
 
-Kelas.hasMany(Walas);
-Walas.belongsTo(Kelas, { foreignKey: "kode_kelas" });
+Kelas.belongsTo(Walas, { foreignKey: "kode_kelas", targetKey: "kode_kelas" });
 
 export default Walas;
